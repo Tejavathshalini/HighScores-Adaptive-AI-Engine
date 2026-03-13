@@ -1,10 +1,53 @@
-# Setup Guide – HighScores Adaptive AI Engine
+# How to Run the Project (Step-by-Step)
 
-This guide explains how to clone, install, and run the project locally.
+Follow these steps to run the project from scratch.
 
 ---
 
-# 1. Clone the Repository
+# 1. Install Python
+
+Make sure Python is installed.
+
+Check using:
+
+```
+python --version
+```
+
+If Python is not installed, download it from:
+
+https://www.python.org/downloads/
+
+---
+
+# 2. Install MongoDB Atlas Database
+
+1. Go to https://www.mongodb.com/cloud/atlas
+2. Create a free account
+3. Create a new cluster
+4. Create a database named:
+
+```
+adaptive_ai_engine
+```
+
+5. Create a collection named:
+
+```
+questions
+```
+
+6. Copy the MongoDB connection string.
+
+Example:
+
+```
+mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
+```
+
+---
+
+# 3. Clone the GitHub Repository
 
 Open your terminal and run:
 
@@ -12,7 +55,7 @@ Open your terminal and run:
 git clone https://github.com/YOUR_USERNAME/HighScores-Adaptive-AI-Engine.git
 ```
 
-Move into the project directory:
+Move into the project folder:
 
 ```
 cd HighScores-Adaptive-AI-Engine
@@ -20,9 +63,9 @@ cd HighScores-Adaptive-AI-Engine
 
 ---
 
-# 2. Install Python Dependencies
+# 4. Install Required Libraries
 
-Install all required libraries using:
+Install dependencies using:
 
 ```
 pip install -r requirements.txt
@@ -30,55 +73,61 @@ pip install -r requirements.txt
 
 Required packages include:
 
-* FastAPI
-* Uvicorn
+* fastapi
+* uvicorn
 * pymongo
 * python-dotenv
-* groq (optional for AI study plan)
 
 ---
 
-# 3. Configure Environment Variables
+# 5. Configure Environment Variables
 
-Create a `.env` file in the project root directory.
+Create a file named:
+
+```
+.env
+```
 
 Add the following:
 
 ```
 MONGO_URI=your_mongodb_connection_string
-GROQ_API_KEY=your_groq_api_key (optional)
 ```
 
 Example:
 
 ```
-MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/
-GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxx
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/?retryWrites=true&w=majority
 ```
 
 ---
 
-# 4. Seed the Database
+# 6. Load the Question Dataset
 
-Load GRE questions into MongoDB:
+Insert GRE questions into MongoDB by running:
 
 ```
 python -m data.seed_questions
 ```
 
-This command inserts the question dataset into the MongoDB collection.
+You should see:
+
+```
+MongoDB connected successfully
+20 questions inserted successfully
+```
 
 ---
 
-# 5. Run the FastAPI Server
+# 7. Start the FastAPI Server
 
-Start the backend server:
+Run the backend server:
 
 ```
 uvicorn app.main:app --reload
 ```
 
-The server will run at:
+Server will start at:
 
 ```
 http://127.0.0.1:8000
@@ -86,19 +135,19 @@ http://127.0.0.1:8000
 
 ---
 
-# 6. Open API Documentation
+# 8. Open API Documentation
 
-Visit the interactive Swagger documentation:
+Open your browser and go to:
 
 ```
 http://127.0.0.1:8000/docs
 ```
 
-You can test all endpoints directly from this page.
+This will open the **Swagger API documentation** where you can test all endpoints.
 
 ---
 
-# 7. Test API Endpoints
+# 9. Test API Endpoints
 
 Example endpoints:
 
@@ -134,41 +183,7 @@ POST /submit-answer
 
 ---
 
-# 8. Project Structure
+# Expected Output
 
-```
-HighScores-Adaptive-AI-Engine
-│
-├── app
-│   ├── main.py
-│   ├── routes.py
-│   ├── adaptive_engine.py
-│   ├── ai_study_plan.py
-│   ├── database.py
-│   ├── models.py
-│   └── session.py
-│
-├── data
-│   └── seed_questions.py
-│
-├── README.md
-├── SETUP_GUIDE.md
-├── AI_USAGE_LOG.md
-├── requirements.txt
-└── .env
-```
+The system will return GRE questions and dynamically adjust difficulty based on user ability.
 
----
-
-# 9. Notes
-
-* MongoDB Atlas is used as the cloud database.
-* The adaptive engine selects questions based on user ability level.
-* Study plans are generated using AI or rule-based recommendations.
-
----
-
-# Author
-
-Tejavath Shalini
-Artificial Intelligence & Machine Learning Student
