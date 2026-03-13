@@ -187,3 +187,75 @@ POST /submit-answer
 
 The system will return GRE questions and dynamically adjust difficulty based on user ability.
 
+## Adaptive Algorithm Logic
+
+The system implements a simple adaptive testing mechanism that selects questions based on the user's estimated ability level.
+
+Each question in the database contains a **difficulty score** between **0 and 1**. The user also has an **ability score**, which represents their current performance level.
+
+### Algorithm Steps
+
+1. **Initial Ability**
+
+   * Every user starts with a default ability score of **0.5**.
+
+2. **Question Selection**
+
+   * The system retrieves a question whose difficulty is closest to the user's current ability score.
+
+3. **Answer Evaluation**
+
+   * When the user submits an answer, the system checks whether it is correct.
+
+4. **Ability Update**
+
+   * If the answer is **correct**, the ability score increases slightly.
+   * If the answer is **incorrect**, the ability score decreases slightly.
+
+5. **Next Question Adaptation**
+
+   * The updated ability score is used to select the next question.
+   * Easier questions are shown when ability is low.
+   * Harder questions are shown when ability is high.
+
+### Difficulty Mapping Example
+
+| Ability Range | Question Difficulty |
+| ------------- | ------------------- |
+| 0.0 – 0.3     | Easy                |
+| 0.3 – 0.6     | Medium              |
+| 0.6 – 1.0     | Hard                |
+
+This adaptive approach helps simulate modern standardized testing systems where the difficulty of questions adjusts dynamically according to the user's performance.
+
+## AI Usage Log
+
+AI tools such as **ChatGPT** were used during the development of this project to accelerate the implementation process and assist with debugging.
+
+### How AI Was Used
+
+The following tasks were supported using AI tools:
+
+* Generating the initial **FastAPI project structure**
+* Creating **API route templates**
+* Designing the **MongoDB schema for questions and user sessions**
+* Implementing the **adaptive question selection logic**
+* Debugging issues related to **FastAPI routing and server configuration**
+* Assisting in writing **documentation and project explanations**
+
+AI significantly helped speed up development by suggesting code patterns and identifying common errors.
+
+### Challenges AI Could Not Solve
+
+While AI tools provided useful guidance, some issues required manual debugging and testing, including:
+
+* Fixing **MongoDB connection authentication errors**
+* Resolving **environment variable configuration problems**
+* Correcting **FastAPI import and routing errors**
+* Ensuring proper **API testing through Swagger documentation**
+
+These issues required manual investigation, testing, and validation to ensure the system worked correctly.
+
+Overall, AI tools were used as a **development assistant**, while final implementation decisions and debugging were handled manually.
+
+
